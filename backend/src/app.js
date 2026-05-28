@@ -15,7 +15,6 @@ app.get("/", (req, res) => {
 
 app.use("/api/user", userRouter);
 
-
 app.use("/api/events", eventRouter);
 
 module.exports = app;

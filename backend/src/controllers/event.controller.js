@@ -13,7 +13,13 @@ const createEventController = async (req, res) => {
       prizes,
       eligibility,
       entryFee,
+      poster,
     } = req.body;
+
+    const posterUrl = req.file ? req.file.path : "";
+
+    console.log(req.body);
+    console.log(req.file);
 
     if (
       !name ||
@@ -22,7 +28,8 @@ const createEventController = async (req, res) => {
       !time ||
       !category ||
       !college ||
-      !location
+      !location ||
+      !req.file
     ) {
       return res.status(400).json({
         message: "All fields are required!",
@@ -41,6 +48,7 @@ const createEventController = async (req, res) => {
       prizes,
       eligibility,
       entryFee,
+      poster: posterUrl,
       createdBy: req.user._id,
     });
 

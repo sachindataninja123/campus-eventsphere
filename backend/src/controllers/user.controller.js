@@ -146,4 +146,45 @@ const logoutController = async (req, res) => {
   }
 };
 
-module.exports = { registerController, loginController, getmeController , logoutController};
+const uploadProfilePicController = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: "Please upload an image",
+      });
+    }
+
+    const updateUser = await userModel.findByIdAndUpdate(
+      userId,
+      {
+        profilePic: req.file.path,
+      },
+      { new: true },
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Profile picture uploaded successfully",
+      profilePic: req.file.path,
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Error while uploading profile picture",
+      error: error.message,
+    });
+  }
+};
+module.exports = {
+  registerController,
+  loginController,
+  getmeController,
+  logoutController,
+  uploadProfilePicController,
+};

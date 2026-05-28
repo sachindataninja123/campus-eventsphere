@@ -4,8 +4,10 @@ const {
   loginController,
   getmeController,
   logoutController,
+  uploadProfilePicController,
 } = require("../controllers/user.controller");
 const { isAuth } = require("../middlewares/isAuth.middleware");
+const upload = require("../middlewares/multer");
 
 const userRouter = express.Router();
 
@@ -13,5 +15,11 @@ userRouter.post("/register", registerController);
 userRouter.post("/login", loginController);
 userRouter.get("/profile", isAuth, getmeController);
 userRouter.post("/logout", isAuth, logoutController);
+userRouter.put(
+  "/profile-picture",
+  isAuth,
+  upload.single("profilePic"),
+  uploadProfilePicController,
+);
 
 module.exports = userRouter;
