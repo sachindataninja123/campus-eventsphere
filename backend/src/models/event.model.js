@@ -49,6 +49,9 @@ const eventSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    poster_public_id: {
+      type: String,
+    },
 
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

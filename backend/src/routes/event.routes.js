@@ -16,13 +16,18 @@ eventRouter.get("/", getAllEvents);
 eventRouter.get("/:id", getEventById);
 
 eventRouter.post(
-  "/",
+  "/create",
   isAuth,
-  isAdmin,
   upload.single("poster"),
   createEventController,
 );
-eventRouter.put("/:id", isAuth, isAdmin, updateEventController);
+
+eventRouter.put(
+  "/update/:id",
+  isAuth,
+  upload.single("poster"),
+  updateEventController,
+);
 eventRouter.delete("/:id", isAuth, isAdmin, deleteEventController);
 eventRouter.patch("/:id/status", isAuth, isAdmin, updateEventStatus);
 

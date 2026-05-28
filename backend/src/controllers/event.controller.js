@@ -1,5 +1,16 @@
 const eventModel = require("../models/event.model");
 
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
+const config = require("../config/config");
+
+cloudinary.config({
+  cloud_name: config.CLOUD_KEY_NAME,
+  api_key: config.CLOUD_API_KEY,
+  api_secret: config.CLOUD_API_SECRET,
+  secure: true,
+});
+
 const createEventController = async (req, res) => {
   try {
     const {
@@ -13,13 +24,7 @@ const createEventController = async (req, res) => {
       prizes,
       eligibility,
       entryFee,
-      poster,
     } = req.body;
-
-    const posterUrl = req.file ? req.file.path : "";
-
-    console.log(req.body);
-    console.log(req.file);
 
     if (
       !name ||
@@ -37,6 +42,16 @@ const createEventController = async (req, res) => {
       });
     }
 
+    // Upload poster to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "event-posters",
+    });
+
+    // Remove local file
+    if (fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
+
     const event = await eventModel.create({
       name,
       description,
@@ -48,7 +63,8 @@ const createEventController = async (req, res) => {
       prizes,
       eligibility,
       entryFee,
-      poster: posterUrl,
+      poster: result.secure_url,
+      poster_public_id: result.public_id,
       createdBy: req.user._id,
     });
 
@@ -58,8 +74,12 @@ const createEventController = async (req, res) => {
       event,
     });
   } catch (error) {
-    console.error("createEvent error:", error.message);
-    res.status(500).json({ success: false, message: error.message });
+    console.error("createEvent error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -68,7 +88,7 @@ const updateEventController = async (req, res) => {
     const event = await eventModel.findById(req.params.id);
 
     if (!event) {
-      return res.status(400).json({
+      return res.status(404).json({
         message: "Event not found",
         success: false,
       });
@@ -81,20 +101,56 @@ const updateEventController = async (req, res) => {
       });
     }
 
-    const updateEvent = await eventModel.findByIdAndUpdate(
+    let posterUrl = event.poster;
+    let posterPublicId = event.poster_public_id;
+
+    // If new poster uploaded
+    if (req.file) {
+      // delete old poster from cloudinary
+      if (event.poster_public_id) {
+        await cloudinary.uploader.destroy(event.poster_public_id);
+      }
+
+      // upload new poster
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "event-posters",
+      });
+
+      // remove local file
+      if (fs.existsSync(req.file.path)) {
+        fs.unlinkSync(req.file.path);
+      }
+
+      posterUrl = result.secure_url;
+      posterPublicId = result.public_id;
+    }
+
+    const updatedEvent = await eventModel.findByIdAndUpdate(
       req.params.id,
-      { ...req.body, poster: req.file?.path || event.poster },
-      { new: true, runValidators: true },
+      {
+        ...req.body,
+        poster: posterUrl,
+        poster_public_id: posterPublicId,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
     );
 
     return res.status(200).json({
-      message: "Event update successfully",
+      message: "Event updated successfully",
       success: true,
-      event: updateEvent,
+      event: updatedEvent,
     });
+
   } catch (error) {
-    console.error("updateEvent error:", error.message);
-    res.status(500).json({ success: false, message: error.message });
+    console.error("updateEvent error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
