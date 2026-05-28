@@ -5,6 +5,7 @@ const {
   getmeController,
   logoutController,
   uploadProfilePicController,
+  removeProfilePicController,
 } = require("../controllers/user.controller");
 const { isAuth } = require("../middlewares/isAuth.middleware");
 const upload = require("../middlewares/multer");
@@ -21,5 +22,6 @@ userRouter.put(
   upload.single("profilePic"),
   uploadProfilePicController,
 );
+userRouter.delete("/profile-picture", isAuth, removeProfilePicController);
 
 module.exports = userRouter;

@@ -2,6 +2,17 @@ const express = require("express");
 const userModel = require("../models/user.model");
 const generateToken = require("../utils/generateToken");
 
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
+const config = require("../config/config");
+
+cloudinary.config({
+  cloud_name: config.CLOUD_KEY_NAME,
+  api_key: config.CLOUD_API_KEY,
+  api_secret: config.CLOUD_API_SECRET,
+  secure: true,
+});
+
 const registerController = async (req, res) => {
   try {
     const { name, email, password, role, department, college } = req.body;
@@ -148,43 +159,111 @@ const logoutController = async (req, res) => {
 
 const uploadProfilePicController = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user._id;
 
-    if (!req.file) {
+    const file = req.file;
+
+    // console.log(req.file);
+
+    if (!file) {
       return res.status(400).json({
+        message: "Image is required",
+        error: true,
         success: false,
-        message: "Please upload an image",
       });
     }
 
-    const updateUser = await userModel.findByIdAndUpdate(
-      userId,
-      {
-        profilePic: req.file.path,
-      },
-      { new: true },
-    );
+    const user = await userModel.findById(userId);
 
-    res.status(200).json({
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        error: true,
+        success: false,
+      });
+    }
+
+    const result = await cloudinary.uploader.upload(file.path, {
+      folder: "users",
+      public_id: userId.toString(),
+      overwrite: true,
+    });
+
+    if (fs.existsSync(file.path)) {
+      fs.unlinkSync(file.path);
+    }
+
+    user.profilePic = result.secure_url;
+    user.avatar_public_id = result.public_id;
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "Avatar updated successfully",
       success: true,
-      message: "Profile picture uploaded successfully",
-      profilePic: req.file.path,
-      user: updatedUser,
+      error: false,
+      data: {
+        avatar: result.secure_url,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    console.log(error.stack);
+    return res.status(500).json({
+      message: error.message,
+      success: false,
+      error: true,
+    });
+  }
+};
+
+const removeProfilePicController = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    // Find user
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        success: false,
+        error: true,
+      });
+    }
+
+    // Remove image from Cloudinary
+    if (user.avatar_public_id) {
+      await cloudinary.uploader.destroy(user.avatar_public_id);
+    }
+
+    // Remove image fields from DB
+    user.profilePic = "";
+    user.avatar_public_id = "";
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "Profile picture removed successfully",
+      success: true,
+      error: false,
     });
   } catch (error) {
     console.log(error);
 
-    res.status(500).json({
+    return res.status(500).json({
+      message: error.message,
       success: false,
-      message: "Error while uploading profile picture",
-      error: error.message,
+      error: true,
     });
   }
 };
+
 module.exports = {
   registerController,
   loginController,
   getmeController,
   logoutController,
   uploadProfilePicController,
+  removeProfilePicController
 };

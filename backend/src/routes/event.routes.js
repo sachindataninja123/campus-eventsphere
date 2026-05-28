@@ -18,8 +18,8 @@ eventRouter.get("/:id", getEventById);
 eventRouter.post(
   "/",
   isAuth,
-  upload.single("poster"),
   isAdmin,
+  upload.single("poster"),
   createEventController,
 );
 eventRouter.put("/:id", isAuth, isAdmin, updateEventController);

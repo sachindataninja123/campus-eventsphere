@@ -11,7 +11,7 @@ const eventSchema = new mongoose.Schema(
       required: true,
     },
     date: {
-      type: String,
+      type: Date,
       required: true,
     },
     time: {
@@ -45,7 +45,10 @@ const eventSchema = new mongoose.Schema(
       default: "approved",
     },
 
-    poster: { type: String },
+    poster: {
+      type: String,
+      required: true,
+    },
 
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
