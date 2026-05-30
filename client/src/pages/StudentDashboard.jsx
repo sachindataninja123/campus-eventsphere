@@ -1,159 +1,227 @@
-import React from "react";
+import {
+  Search,
+  Bell,
+  Calendar,
+  Trophy,
+  Users,
+  MapPin,
+  Home,
+  Ticket,
+  User,
+} from "lucide-react";
+import BottomNav from "../components/BottomNav";
+import TopNav from "../components/TopNav";
 
-const StudentDashboard = () => {
-  const upcomingEvents = [
+export default function StudentDashboard() {
+  const categories = [
     {
-      title: "Hackathon 2026",
-      date: "12 June 2026",
-      category: "Coding",
+      name: "Hackathons",
+      icon: "💻",
+      count: "42 Events",
+      color: "from-indigo-500 to-violet-500",
     },
     {
-      title: "AI Workshop",
-      date: "15 June 2026",
-      category: "Workshop",
+      name: "Sports",
+      icon: "⚽",
+      count: "28 Events",
+      color: "from-green-500 to-emerald-500",
     },
     {
-      title: "Cultural Fest",
-      date: "20 June 2026",
-      category: "Fest",
+      name: "Cultural",
+      icon: "🎭",
+      count: "35 Events",
+      color: "from-pink-500 to-rose-500",
+    },
+    {
+      name: "Workshops",
+      icon: "🎤",
+      count: "19 Events",
+      color: "from-orange-500 to-amber-500",
+    },
+  ];
+
+  const events = [
+    {
+      title: "National Hackathon 2026",
+      college: "KIET Group of Institutions",
+      date: "12 July 2026",
+      image:
+        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000",
+    },
+    {
+      title: "Tech Fest 2026",
+      college: "IIT Delhi",
+      date: "18 July 2026",
+      image:
+        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1000",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-100 via-white to-indigo-50 flex">
-      {/* Sidebar */}
-      <aside className="hidden lg:flex flex-col w-72 bg-white border-r border-slate-200 shadow-sm p-6">
-        <div className="flex items-center gap-3 mb-12">
-          <div className="w-14 h-14 rounded-2xl bg-linear-to-r from-indigo-600 to-blue-500 text-white flex items-center justify-center text-2xl font-bold shadow-lg">
-            E
-          </div>
+    <div className="min-h-screen bg-slate-50">
+      <div className="max-w-md mx-auto pb-24">
+        <TopNav />
 
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900">EventSphere</h1>
-            <p className="text-sm text-slate-500">Student Dashboard</p>
-          </div>
-        </div>
+        {/* Hero */}
+        <section className="p-4">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-700 p-6 text-white">
+            <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-white/10" />
+            <div className="absolute bottom-0 left-0 h-20 w-20 rounded-full bg-white/10" />
 
-        <nav className="space-y-3">
-          <button className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl bg-linear-to-r from-indigo-600 to-blue-500 text-white font-medium shadow-lg shadow-indigo-200">
-            Dashboard
-          </button>
+            <p className="text-indigo-100 text-sm">Welcome Back 👋</p>
 
-          <button className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-slate-700 hover:bg-slate-100 transition">
-            Explore Events
-          </button>
+            <h2 className="mt-2 text-3xl font-bold leading-tight">
+              Discover Amazing
+              <span className="block">Campus Events</span>
+            </h2>
 
-          <button className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-slate-700 hover:bg-slate-100 transition">
-            Registered Events
-          </button>
-
-          <button className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-slate-700 hover:bg-slate-100 transition">
-            Certificates
-          </button>
-
-          <button className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-slate-700 hover:bg-slate-100 transition">
-            Profile
-          </button>
-        </nav>
-
-        <div className="mt-auto bg-linear-to-r from-indigo-600 to-blue-500 rounded-3xl p-5 text-white">
-          <h2 className="font-semibold text-lg mb-2">Stay Active 🚀</h2>
-          <p className="text-sm text-white/80 leading-relaxed">
-            Participate in events and build your campus profile.
-          </p>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 p-6 sm:p-8 lg:p-10 overflow-y-auto">
-        {/* Top Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-10">
-          <div>
-            <h1 className="text-4xl font-bold text-slate-900">
-              Welcome Back 👋
-            </h1>
-            <p className="text-slate-500 mt-2 text-base">
-              Explore upcoming events happening in your campus.
+            <p className="mt-3 text-indigo-100">
+              Join hackathons, sports tournaments, workshops and cultural fests.
             </p>
-          </div>
 
-          <div className="flex items-center gap-4">
+            <button className="mt-5 rounded-xl bg-white px-5 py-3 font-semibold text-indigo-600">
+              Explore Events
+            </button>
+          </div>
+        </section>
+
+        {/* Search */}
+        <section className="px-4">
+          <div className="relative">
+            <Search
+              size={18}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+            />
+
             <input
               type="text"
               placeholder="Search events..."
-              className="px-5 py-3 rounded-2xl border border-slate-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full md:w-80"
+              className="w-full rounded-2xl border border-slate-200 bg-white py-3 pl-11 pr-4 outline-none focus:border-indigo-500"
             />
-
-            <div className="w-14 h-14 rounded-2xl bg-linear-to-r from-indigo-600 to-blue-500 text-white flex items-center justify-center font-bold text-lg shadow-lg">
-              S
-            </div>
           </div>
-        </div>
+        </section>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div className="bg-white rounded-3xl p-6 shadow-lg border border-slate-100">
-            <h3 className="text-slate-500 text-sm font-medium mb-3">
-              Events Joined
-            </h3>
-            <h2 className="text-4xl font-bold text-slate-900">12</h2>
+        {/* Categories */}
+        <section className="mt-6 px-4">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-lg font-bold">Explore Categories</h2>
+
+            <button className="text-sm font-medium text-indigo-600">
+              See All
+            </button>
           </div>
 
-          <div className="bg-white rounded-3xl p-6 shadow-lg border border-slate-100">
-            <h3 className="text-slate-500 text-sm font-medium mb-3">
-              Upcoming Events
-            </h3>
-            <h2 className="text-4xl font-bold text-slate-900">5</h2>
-          </div>
+          <div className="flex gap-3 overflow-x-auto pb-2">
+            {categories.map((cat) => (
+              <div
+                key={cat.name}
+                className={`min-w-[150px] rounded-3xl bg-gradient-to-br ${cat.color} p-4 text-white shadow-lg`}
+              >
+                <div className="mb-3 text-4xl">{cat.icon}</div>
 
-          <div className="bg-white rounded-3xl p-6 shadow-lg border border-slate-100">
-            <h3 className="text-slate-500 text-sm font-medium mb-3">
-              Certificates Earned
-            </h3>
-            <h2 className="text-4xl font-bold text-slate-900">8</h2>
-          </div>
-        </div>
+                <h3 className="font-bold">{cat.name}</h3>
 
-        {/* Events Section */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-slate-900">Upcoming Events</h2>
-
-          <button className="text-indigo-600 font-medium hover:text-indigo-500 transition">
-            View All
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {upcomingEvents.map((event, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-3xl p-6 shadow-lg border border-slate-100 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
-            >
-              <div className="flex items-center justify-between mb-5">
-                <span className="px-4 py-2 rounded-full bg-indigo-100 text-indigo-700 text-sm font-medium">
-                  {event.category}
-                </span>
-
-                <span className="text-sm text-slate-500">{event.date}</span>
+                <p className="mt-1 text-sm text-white/80">{cat.count}</p>
               </div>
+            ))}
+          </div>
+        </section>
 
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">
-                {event.title}
-              </h3>
+        {/* Events */}
+        <section className="mt-6 px-4">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-lg font-bold">Trending Events</h2>
 
-              <p className="text-slate-500 text-sm leading-relaxed mb-6">
-                Join exciting campus activities and connect with students.
-              </p>
+            <button className="text-sm font-medium text-indigo-600">
+              View All
+            </button>
+          </div>
 
-              <button className="w-full py-3 rounded-2xl bg-linear-to-r from-indigo-600 to-blue-500 text-white font-medium hover:scale-[1.02] transition-all duration-300 shadow-md shadow-indigo-200">
-                Register Now
-              </button>
+          <div className="space-y-4">
+            {events.map((event, index) => (
+              <div
+                key={index}
+                className="overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-md"
+              >
+                <div className="relative">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="h-44 w-full object-cover"
+                  />
+
+                  <div className="absolute left-3 top-3 rounded-full bg-indigo-600 px-3 py-1 text-xs text-white">
+                    Trending
+                  </div>
+                </div>
+
+                <div className="p-4">
+                  <h3 className="font-bold text-slate-900">{event.title}</h3>
+
+                  <div className="mt-2 flex items-center gap-2 text-sm text-slate-500">
+                    <MapPin size={14} />
+                    {event.college}
+                  </div>
+
+                  <div className="mt-1 flex items-center gap-2 text-sm text-slate-500">
+                    <Calendar size={14} />
+                    {event.date}
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between">
+                    <button className="rounded-xl bg-indigo-600 px-4 py-2 text-white">
+                      Register
+                    </button>
+
+                    <button className="font-medium text-indigo-600">
+                      Details →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Stats */}
+        <section className="mt-6 px-4">
+          <div className="grid grid-cols-3 gap-3">
+            <div className="rounded-2xl bg-white p-4 text-center shadow-sm">
+              <Trophy className="mx-auto mb-2" />
+              <h3 className="font-bold">500+</h3>
+              <p className="text-xs text-slate-500">Events</p>
             </div>
-          ))}
-        </div>
-      </main>
+
+            <div className="rounded-2xl bg-white p-4 text-center shadow-sm">
+              <Users className="mx-auto mb-2" />
+              <h3 className="font-bold">100+</h3>
+              <p className="text-xs text-slate-500">Colleges</p>
+            </div>
+
+            <div className="rounded-2xl bg-white p-4 text-center shadow-sm">
+              <Calendar className="mx-auto mb-2" />
+              <h3 className="font-bold">50K+</h3>
+              <p className="text-xs text-slate-500">Students</p>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="p-4">
+          <div className="rounded-3xl bg-indigo-600 p-6 text-center text-white">
+            <h2 className="text-xl font-bold">Want to Host an Event?</h2>
+
+            <p className="mt-2 text-indigo-100">
+              Create and manage your campus events with ease.
+            </p>
+
+            <button className="mt-4 rounded-xl bg-white px-5 py-3 font-semibold text-indigo-600">
+              Create Event
+            </button>
+          </div>
+        </section>
+      </div>
+      <BottomNav />
     </div>
   );
-};
-
-export default StudentDashboard;
+}
