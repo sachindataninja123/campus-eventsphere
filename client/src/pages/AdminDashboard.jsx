@@ -1,210 +1,285 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  Menu,
+  Bell,
+  Plus,
+  TrendingUp,
+  Calendar,
+  MessageCircle,
+} from "lucide-react";
 
 const AdminDashboard = () => {
-  const recentEvents = [
+  const [showModal, setShowModal] = useState(false);
+
+  const stats = [
     {
-      title: "Hackathon 2026",
-      category: "Coding",
-      registrations: 320,
-      status: "Active",
+      title: "Total Registrations",
+      value: "1,284",
+      growth: "+12%",
+      icon: <TrendingUp size={18} />,
+      color: "border-green-500",
     },
     {
-      title: "AI Workshop",
-      category: "Workshop",
-      registrations: 180,
-      status: "Upcoming",
+      title: "Active Events",
+      value: "24",
+      growth: "8 Today",
+      icon: <Calendar size={18} />,
+      color: "border-indigo-500",
     },
     {
-      title: "Cultural Fest",
-      category: "Fest",
-      registrations: 500,
-      status: "Completed",
+      title: "New Inquiries",
+      value: "15",
+      growth: "Pending",
+      icon: <MessageCircle size={18} />,
+      color: "border-pink-500",
+    },
+  ];
+
+  const events = [
+    {
+      title: "Annual Tech Symposium 2024",
+      category: "TECH",
+      registrations: "450/500",
+      location: "Auditorium A",
+      date: "Oct 24, 10:00 AM",
+      image:
+        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3",
+    },
+    {
+      title: "Sunset Yoga Flow",
+      category: "HEALTH",
+      registrations: "82/100",
+      location: "Central Lawn",
+      date: "Oct 25, 07:00 AM",
+      image:
+        "https://images.unsplash.com/photo-1506126613408-eca07ce68773",
+    },
+    {
+      title: "Fall Music Festival",
+      category: "CULTURE",
+      registrations: "1200",
+      location: "South Plaza",
+      date: "Oct 28, 08:00 PM",
+      image:
+        "https://images.unsplash.com/photo-1501386761578-eac5c94b800a",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-100 via-white to-indigo-50 flex overflow-hidden">
-      {/* Sidebar */}
-      <aside className="hidden lg:flex flex-col w-72 bg-white border-r border-slate-200 shadow-sm p-6">
-        <div className="flex items-center gap-3 mb-12">
-          <div className="w-14 h-14 rounded-2xl bg-linear-to-r from-indigo-600 to-blue-500 text-white flex items-center justify-center text-2xl font-bold shadow-lg">
-            E
-          </div>
+    <div className="min-h-screen bg-slate-50">
+      {/* Navbar */}
 
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900">EventSphere</h1>
-            <p className="text-sm text-slate-500">Admin Panel</p>
-          </div>
-        </div>
+      <header className="fixed top-0 w-full z-50 bg-white border-b">
+        <div className="h-16 px-6 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Menu className="text-indigo-600" />
 
-        <nav className="space-y-3">
-          <button className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl bg-linear-to-r from-indigo-600 to-blue-500 text-white font-medium shadow-lg shadow-indigo-200">
-            Dashboard
-          </button>
-
-          <button className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-slate-700 hover:bg-slate-100 transition">
-            Manage Events
-          </button>
-
-          <button className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-slate-700 hover:bg-slate-100 transition">
-            Students
-          </button>
-
-          <button className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-slate-700 hover:bg-slate-100 transition">
-            Certificates
-          </button>
-
-          <button className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-slate-700 hover:bg-slate-100 transition">
-            Analytics
-          </button>
-
-          <button className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-slate-700 hover:bg-slate-100 transition">
-            Settings
-          </button>
-        </nav>
-
-        <div className="mt-auto rounded-3xl bg-linear-to-r from-indigo-600 to-blue-500 p-5 text-white shadow-xl">
-          <h2 className="text-lg font-semibold mb-2">Admin Access ⚡</h2>
-          <p className="text-sm text-white/80 leading-relaxed">
-            Manage campus events and monitor student participation.
-          </p>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 p-6 sm:p-8 lg:p-10 overflow-y-auto">
-        {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-10">
-          <div>
-            <h1 className="text-4xl font-bold text-slate-900">
-              Admin Dashboard 🚀
+            <h1 className="text-2xl font-bold text-indigo-600">
+              Admin Portal
             </h1>
-            <p className="text-slate-500 mt-2 text-base">
-              Monitor events, registrations, and student activities.
-            </p>
           </div>
 
           <div className="flex items-center gap-4">
-            <button className="px-6 py-3 rounded-2xl bg-linear-to-r from-indigo-600 to-blue-500 text-white font-medium shadow-lg shadow-indigo-200 hover:scale-[1.02] transition-all duration-300">
-              + Create Event
-            </button>
+            <Bell className="text-indigo-600" />
 
-            <div className="w-14 h-14 rounded-2xl bg-linear-to-r from-indigo-600 to-blue-500 text-white flex items-center justify-center font-bold text-lg shadow-lg">
-              A
+            <div className="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center font-bold text-indigo-700">
+              JD
             </div>
           </div>
         </div>
+      </header>
 
-        {/* Analytics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
-          <div className="bg-white rounded-3xl p-6 shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300">
-            <p className="text-slate-500 text-sm font-medium mb-3">
-              Total Events
-            </p>
-            <h2 className="text-4xl font-bold text-slate-900">24</h2>
-          </div>
+      <main className="pt-24 px-6 max-w-7xl mx-auto">
+        {/* Heading */}
 
-          <div className="bg-white rounded-3xl p-6 shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300">
-            <p className="text-slate-500 text-sm font-medium mb-3">
-              Total Students
-            </p>
-            <h2 className="text-4xl font-bold text-slate-900">2.4K</h2>
-          </div>
+        <div className="mb-8">
+          <h2 className="text-4xl font-bold">
+            Welcome back, Admin 👋
+          </h2>
 
-          <div className="bg-white rounded-3xl p-6 shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300">
-            <p className="text-slate-500 text-sm font-medium mb-3">
-              Active Events
-            </p>
-            <h2 className="text-4xl font-bold text-slate-900">8</h2>
-          </div>
-
-          <div className="bg-white rounded-3xl p-6 shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300">
-            <p className="text-slate-500 text-sm font-medium mb-3">
-              Certificates Issued
-            </p>
-            <h2 className="text-4xl font-bold text-slate-900">640</h2>
-          </div>
+          <p className="text-slate-500 mt-2">
+            Here's what's happening on campus today.
+          </p>
         </div>
 
-        {/* Recent Events */}
-        <div className="bg-white rounded-[32px] shadow-xl border border-slate-100 overflow-hidden">
-          <div className="flex items-center justify-between px-8 py-6 border-b border-slate-100">
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">
-                Recent Events
-              </h2>
-              <p className="text-slate-500 text-sm mt-1">
-                Track registrations and event activity.
+        {/* Stats */}
+
+        <div className="grid md:grid-cols-3 gap-6 mb-10">
+          {stats.map((item, index) => (
+            <div
+              key={index}
+              className={`bg-white rounded-2xl p-6 border-l-4 ${item.color} shadow-sm`}
+            >
+              <div className="flex justify-between">
+                <span className="text-slate-500 text-sm uppercase">
+                  {item.title}
+                </span>
+
+                {item.icon}
+              </div>
+
+              <h3 className="text-4xl font-bold mt-3">
+                {item.value}
+              </h3>
+
+              <p className="text-green-600 mt-3 text-sm">
+                {item.growth}
               </p>
             </div>
+          ))}
+        </div>
 
-            <button className="text-indigo-600 font-medium hover:text-indigo-500 transition">
-              View All
-            </button>
+        {/* Main Grid */}
+
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Events */}
+
+          <div className="lg:col-span-2">
+            <div className="flex justify-between mb-5">
+              <h3 className="text-2xl font-bold">
+                Manage Events
+              </h3>
+
+              <button className="text-indigo-600 font-semibold">
+                View All
+              </button>
+            </div>
+
+            <div className="space-y-5">
+              {events.map((event, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl p-5 border hover:border-indigo-500 transition"
+                >
+                  <div className="flex flex-col md:flex-row gap-5">
+                    <img
+                      src={event.image}
+                      alt=""
+                      className="w-24 h-24 rounded-xl object-cover"
+                    />
+
+                    <div className="flex-1">
+                      <span className="px-3 py-1 rounded-full text-xs bg-indigo-100 text-indigo-600 font-semibold">
+                        {event.category}
+                      </span>
+
+                      <h4 className="text-xl font-bold mt-2">
+                        {event.title}
+                      </h4>
+
+                      <p className="text-slate-500 mt-1">
+                        {event.location}
+                      </p>
+
+                      <p className="text-sm text-slate-400">
+                        {event.registrations} Registered
+                      </p>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <button className="px-4 py-2 rounded-lg bg-indigo-100 text-indigo-700">
+                        Edit
+                      </button>
+
+                      <button className="px-4 py-2 rounded-lg border border-indigo-500 text-indigo-600">
+                        Attendees
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[700px]">
-              <thead>
-                <tr className="bg-slate-50 text-left">
-                  <th className="px-8 py-4 text-sm font-semibold text-slate-600">
-                    Event Name
-                  </th>
+          {/* Activity */}
 
-                  <th className="px-8 py-4 text-sm font-semibold text-slate-600">
-                    Category
-                  </th>
+          <div>
+            <h3 className="text-2xl font-bold mb-5">
+              Recent Activity
+            </h3>
 
-                  <th className="px-8 py-4 text-sm font-semibold text-slate-600">
-                    Registrations
-                  </th>
+            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+              {[
+                "Alex registered for Tech Symposium",
+                "New inquiry received",
+                "Venue updated for Yoga Event",
+                "AI Workshop reached capacity",
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="p-4 border-b last:border-none hover:bg-slate-50"
+                >
+                  <p className="font-medium">{item}</p>
 
-                  <th className="px-8 py-4 text-sm font-semibold text-slate-600">
-                    Status
-                  </th>
-
-                  <th className="px-8 py-4 text-sm font-semibold text-slate-600">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {recentEvents.map((event, index) => (
-                  <tr
-                    key={index}
-                    className="border-t border-slate-100 hover:bg-slate-50 transition"
-                  >
-                    <td className="px-8 py-5 font-semibold text-slate-900">
-                      {event.title}
-                    </td>
-
-                    <td className="px-8 py-5 text-slate-600">
-                      {event.category}
-                    </td>
-
-                    <td className="px-8 py-5 text-slate-600">
-                      {event.registrations}
-                    </td>
-
-                    <td className="px-8 py-5">
-                      <span className="px-4 py-2 rounded-full bg-indigo-100 text-indigo-700 text-sm font-medium">
-                        {event.status}
-                      </span>
-                    </td>
-
-                    <td className="px-8 py-5">
-                      <button className="px-5 py-2 rounded-xl bg-linear-to-r from-indigo-600 to-blue-500 text-white text-sm font-medium hover:scale-[1.02] transition-all duration-300 shadow-md shadow-indigo-200">
-                        Manage
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                  <span className="text-sm text-slate-500">
+                    2 mins ago
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </main>
+
+      {/* Floating Create Event Button */}
+
+      <button
+        onClick={() => setShowModal(true)}
+        className="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-indigo-600 text-white shadow-xl flex items-center justify-center"
+      >
+        <Plus size={30} />
+      </button>
+
+      {/* Modal */}
+
+      {showModal && (
+        <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
+          <div className="bg-white w-full max-w-xl rounded-2xl p-6">
+            <h2 className="text-2xl font-bold mb-5">
+              Create Event
+            </h2>
+
+            <div className="space-y-4">
+              <input
+                placeholder="Event Title"
+                className="w-full border rounded-xl p-3"
+              />
+
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  type="date"
+                  className="border rounded-xl p-3"
+                />
+
+                <select className="border rounded-xl p-3">
+                  <option>Tech</option>
+                  <option>Sports</option>
+                  <option>Workshop</option>
+                </select>
+              </div>
+
+              <textarea
+                rows="4"
+                placeholder="Description"
+                className="w-full border rounded-xl p-3"
+              />
+            </div>
+
+            <div className="flex gap-4 mt-6">
+              <button
+                onClick={() => setShowModal(false)}
+                className="flex-1 border py-3 rounded-xl"
+              >
+                Cancel
+              </button>
+
+              <button className="flex-1 bg-indigo-600 text-white py-3 rounded-xl">
+                Create Event
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

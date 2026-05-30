@@ -7,6 +7,7 @@ import {
   Lock,
   Eye,
   EyeOff,
+  Phone,
 } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,6 +19,7 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
+    phone: "",
     role: "student",
     department: "",
     college: "",
@@ -71,122 +73,151 @@ const Register = () => {
         <div className="max-w-md w-full">
           {/* Right Side Form */}
           <div className="bg-white rounded-3xl border border-slate-200 p-5 shadow-lg">
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold">Join the Community</h2>
+            <div className="mb-5">
+              <h2 className="text-[22px] font-bold">Join the Community</h2>
 
-              <p className="text-slate-500 mt-2">
+              <p className="text-slate-500 text-sm mt-1">
                 Create your account and start exploring campus events.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Name */}
-              <div>
-                <label className="block mb-2 text-sm font-medium">
-                  Full Name
-                </label>
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <div className="grid grid-cols-1 gap-4">
+                {/* Name */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium">
+                    Full Name
+                  </label>
 
-                <div className="relative">
-                  <User
-                    size={18}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  />
+                  <div className="relative">
+                    <User
+                      size={18}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
 
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Sachin Kushwaha"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
-                  />
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Sachin Kushwaha"
+                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium">
+                    Email Address
+                  </label>
+
+                  <div className="relative">
+                    <Mail
+                      size={18}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
+
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="student@university.edu"
+                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
+                    />
+                  </div>
                 </div>
               </div>
 
-              {/* Email */}
-              <div>
-                <label className="block mb-2 text-sm font-medium">
-                  Email Address
-                </label>
+              <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+                {/* College */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium">
+                    College
+                  </label>
 
-                <div className="relative">
-                  <Mail
-                    size={18}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  />
+                  <div className="relative">
+                    <Building2
+                      size={18}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
 
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="example@gmail.com"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
-                  />
+                    <input
+                      type="text"
+                      name="college"
+                      value={formData.college}
+                      onChange={handleChange}
+                      placeholder="Lingayas Vidy..."
+                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Phone */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium">
+                    Phone Number
+                  </label>
+
+                  <div className="relative">
+                    <Phone
+                      size={18}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
+
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="987867...."
+                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
+                    />
+                  </div>
                 </div>
               </div>
 
-              {/* College */}
-              <div>
-                <label className="block mb-2 text-sm font-medium">
-                  College
-                </label>
+              <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+                {/* Department */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium">
+                    Department
+                  </label>
 
-                <div className="relative">
-                  <Building2
-                    size={18}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  />
+                  <div className="relative">
+                    <GraduationCap
+                      size={18}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
 
-                  <input
-                    type="text"
-                    name="college"
-                    value={formData.college}
-                    onChange={handleChange}
-                    placeholder="KIET Group of Institutions"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
-                  />
+                    <input
+                      type="text"
+                      name="department"
+                      value={formData.department}
+                      onChange={handleChange}
+                      placeholder="CSE"
+                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* Department */}
-              <div>
-                <label className="block mb-2 text-sm font-medium">
-                  Department
-                </label>
+                {/* Role */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium">
+                    Select Role
+                  </label>
 
-                <div className="relative">
-                  <GraduationCap
-                    size={18}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  />
-
-                  <input
-                    type="text"
-                    name="department"
-                    value={formData.department}
+                  <select
+                    name="role"
+                    value={formData.role}
                     onChange={handleChange}
-                    placeholder="Computer Science"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
-                  />
+                    className="w-full py-3 px-2 rounded-xl text-slate-500 border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none bg-white"
+                  >
+                    <option value="student">Student</option>
+                    <option value="admin">Admin</option>
+                  </select>
                 </div>
-              </div>
-
-              {/* Role */}
-              <div>
-                <label className="block mb-2 text-sm  font-medium">
-                  Select Role
-                </label>
-
-                <select
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  className="w-full px-2 text-slate-500 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none bg-white"
-                >
-                  <option value="student">Student</option>
-                  <option value="admin">Admin</option>
-                </select>
               </div>
 
               {/* Password */}
@@ -220,16 +251,11 @@ const Register = () => {
                 </div>
               </div>
 
-              {/* Terms */}
-              <label className="flex gap-3 items-start text-sm text-slate-600">
-                <input type="checkbox" required />I agree to the Terms &
-                Conditions and Privacy Policy.
-              </label>
 
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 transition"
+                className="w-full mt-4 bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 transition"
               >
                 Create Account
               </button>

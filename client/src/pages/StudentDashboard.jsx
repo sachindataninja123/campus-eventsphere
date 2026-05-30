@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import BottomNav from "../components/BottomNav";
 import TopNav from "../components/TopNav";
+import { Link } from "react-router-dom";
 
 export default function StudentDashboard() {
   const categories = [
@@ -64,7 +65,7 @@ export default function StudentDashboard() {
 
         {/* Hero */}
         <section className="p-4">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-700 p-6 text-white">
+          <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-indigo-600 via-indigo-700 to-violet-700 p-6 text-white">
             <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-white/10" />
             <div className="absolute bottom-0 left-0 h-20 w-20 rounded-full bg-white/10" />
 
@@ -79,9 +80,14 @@ export default function StudentDashboard() {
               Join hackathons, sports tournaments, workshops and cultural fests.
             </p>
 
-            <button className="mt-5 rounded-xl bg-white px-5 py-3 font-semibold text-indigo-600">
-              Explore Events
-            </button>
+            <div className="mt-5">
+              <Link
+                to="/events"
+                className="rounded-xl bg-white px-5 py-3 font-semibold text-indigo-600"
+              >
+                Explore Events
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -115,7 +121,7 @@ export default function StudentDashboard() {
             {categories.map((cat) => (
               <div
                 key={cat.name}
-                className={`min-w-[150px] rounded-3xl bg-gradient-to-br ${cat.color} p-4 text-white shadow-lg`}
+                className={`min-w-37.5 rounded-3xl bg-linear-to-br ${cat.color} p-4 text-white shadow-lg`}
               >
                 <div className="mb-3 text-4xl">{cat.icon}</div>
 
