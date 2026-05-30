@@ -1,170 +1,284 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  User,
+  Mail,
+  Building2,
+  GraduationCap,
+  Lock,
+  Eye,
+  EyeOff,
+} from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [department, setDepartment] = useState("");
-  const [college, setCollege] = useState("");
-  const [role, setRole] = useState("Student");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "student",
+    department: "",
+    college: "",
+  });
 
-  const submitHandler = (e) => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(name, email, password, department, college, role);
+    console.log(formData);
 
-    setName("");
-    setEmail("");
-    setCollege("");
-    setDepartment("");
-    setPassword("");
-    setRole("");
+    // API Call Here
+    /*
+    try {
+      const res = await axios.post(
+        "/api/v1/auth/register",
+        formData
+      );
+
+      toast.success(res.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+    */
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-100 via-white to-slate-200 flex items-center justify-center px-6 py-10">
-      <div className="w-full max-w-2xl bg-white rounded-lg shadow-2xl border border-slate-200 p-8 sm:p-10">
-        <div className="flex flex-col items-center text-center mb-10">
-          <h1 className="text-3xl font-bold text-slate-900">Create Account</h1>
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      {/* Header */}
+      <header className="max-w-7xl mx-auto w-full px-6 py-5 flex justify-center items-center">
+        {/* Logo */}
+        <div className="text-center mb-2">
+          <div className="inline-flex items-center justify-center p-4 rounded-xl bg-indigo-600 text-white shadow-lg hover:scale-105 transition duration-300">
+            <span className="text-3xl">🎓</span>
+          </div>
 
-          <p className="text-slate-500 mt-2 text-sm leading-relaxed max-w-md">
-            Join EventSphere to explore campus events, hackathons, workshops and
-            student communities.
+          <h1 className="text-3xl font-bold mt-3 text-slate-900">
+            CampusEventHub
+          </h1>
+        </div>
+      </header>
+
+      {/* Main */}
+      <main className="flex-1 flex items-center justify-center px-3 pb-6">
+        <div className="max-w-md w-full">
+          {/* Right Side Form */}
+          <div className="bg-white rounded-3xl border border-slate-200 p-5 shadow-lg">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold">Join the Community</h2>
+
+              <p className="text-slate-500 mt-2">
+                Create your account and start exploring campus events.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Name */}
+              <div>
+                <label className="block mb-2 text-sm font-medium">
+                  Full Name
+                </label>
+
+                <div className="relative">
+                  <User
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Sachin Kushwaha"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div>
+                <label className="block mb-2 text-sm font-medium">
+                  Email Address
+                </label>
+
+                <div className="relative">
+                  <Mail
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="example@gmail.com"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* College */}
+              <div>
+                <label className="block mb-2 text-sm font-medium">
+                  College
+                </label>
+
+                <div className="relative">
+                  <Building2
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    type="text"
+                    name="college"
+                    value={formData.college}
+                    onChange={handleChange}
+                    placeholder="KIET Group of Institutions"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Department */}
+              <div>
+                <label className="block mb-2 text-sm font-medium">
+                  Department
+                </label>
+
+                <div className="relative">
+                  <GraduationCap
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    type="text"
+                    name="department"
+                    value={formData.department}
+                    onChange={handleChange}
+                    placeholder="Computer Science"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Role */}
+              <div>
+                <label className="block mb-2 text-sm  font-medium">
+                  Select Role
+                </label>
+
+                <select
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  className="w-full px-2 text-slate-500 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none bg-white"
+                >
+                  <option value="student">Student</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+
+              {/* Password */}
+              <div>
+                <label className="block mb-2 text-sm font-medium">
+                  Password
+                </label>
+
+                <div className="relative">
+                  <Lock
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
+
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="••••••••"
+                    className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-600 outline-none"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Terms */}
+              <label className="flex gap-3 items-start text-sm text-slate-600">
+                <input type="checkbox" required />I agree to the Terms &
+                Conditions and Privacy Policy.
+              </label>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                className="w-full bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 transition"
+              >
+                Create Account
+              </button>
+
+              <div className="flex items-center gap-4 py-2">
+                <div className="flex-1 border-t border-slate-300" />
+
+                <span className="text-sm text-slate-400">Or sign in with</span>
+
+                <div className="flex-1 border-t border-slate-300" />
+              </div>
+
+              {/* Social Login */}
+              <div className="grid grid-cols-2 gap-4">
+                <button
+                  type="button"
+                  className="flex items-center justify-center gap-3 border border-slate-300 rounded-lg py-3 hover:bg-slate-50 transition"
+                >
+                  <img
+                    src="https://www.svgrepo.com/show/475656/google-color.svg"
+                    alt="Google"
+                    className="w-5 h-5"
+                  />
+                  Google
+                </button>
+
+                <button
+                  type="button"
+                  className="flex items-center justify-center gap-3 border border-slate-300 rounded-lg py-3 hover:bg-slate-50 transition"
+                >
+                  <FaGithub size={21} />
+                  Github
+                </button>
+              </div>
+            </form>
+          </div>
+
+          {/* Login */}
+          <p className="text-center mt-5 text-slate-500">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="text-indigo-600 font-semibold cursor-pointer hover:underline"
+            >
+              Login
+            </Link>
           </p>
         </div>
-
-        <form className="space-y-5" onSubmit={(e) => submitHandler(e)}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Full Name
-              </label>
-
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                type="text"
-                placeholder="Enter your name"
-                className="w-full px-4 py-4 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                College Email
-              </label>
-
-              <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                placeholder="student@college.edu"
-                className="w-full px-4 py-4 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Password
-              </label>
-
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                placeholder="Create password"
-                className="w-full px-4 py-4 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Role
-              </label>
-
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                className="w-full px-2 py-4 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-              >
-                <option>Student</option>
-                <option>Organizer</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Department
-              </label>
-
-              <input
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-                type="text"
-                placeholder="CSE / IT / ECE"
-                className="w-full px-4 py-4 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                College Name
-              </label>
-
-              <input
-                value={college}
-                onChange={(e) => setCollege(e.target.value)}
-                type="text"
-                placeholder="Enter college name"
-                className="w-full px-4 py-4 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-              />
-            </div>
-          </div>
-
-          <div className="flex items-start gap-3 text-sm text-slate-600 pt-1">
-            <input type="checkbox" className="mt-1 accent-indigo-600" />
-            <p>
-              I agree to the Terms & Conditions and Privacy Policy of
-              EventSphere.
-            </p>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full py-4 rounded-lg bg-linear-to-r from-indigo-600 to-blue-500 text-white font-semibold text-base hover:scale-[1.01] transition-all duration-300 shadow-lg shadow-indigo-200 mt-3"
-          >
-            Create Account
-          </button>
-        </form>
-
-        <div className="relative my-8">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-slate-200"></div>
-          </div>
-
-          <div className="relative flex justify-center text-xs uppercase tracking-wider">
-            <span className="bg-white px-4 text-slate-400">Continue With</span>
-          </div>
-        </div>
-
-        <p className="text-center text-slate-500 text-sm mt-8">
-          Already have an account?{" "}
-          <Link
-            to="/login"
-            className="text-indigo-600 font-medium cursor-pointer hover:text-indigo-500 transition"
-          >
-            Sign In
-          </Link>
-        </p>
-      </div>
+      </main>
     </div>
   );
 };
