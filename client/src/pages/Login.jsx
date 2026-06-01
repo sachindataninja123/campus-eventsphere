@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, LogIn } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { useAppContext } from "../UserContext";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -9,10 +10,14 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const { login } = useAppContext();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(email, password);
+    login(email, password);
+
+    navigate("/dashboard");
 
     setEmail("");
     setPassword("");

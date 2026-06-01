@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   User,
   Mail,
@@ -11,9 +11,13 @@ import {
 } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { useAppContext } from "../UserContext";
 
 const Register = () => {
+  const { register } = useAppContext();
+
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,21 +39,8 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
-
-    // API Call Here
-    /*
-    try {
-      const res = await axios.post(
-        "/api/v1/auth/register",
-        formData
-      );
-
-      toast.success(res.data.message);
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-    */
+    register(formData);
+    navigate("/login");
   };
 
   return (
@@ -250,7 +241,6 @@ const Register = () => {
                   </button>
                 </div>
               </div>
-
 
               {/* Submit */}
               <button

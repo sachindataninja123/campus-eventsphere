@@ -15,9 +15,10 @@ cloudinary.config({
 
 const registerController = async (req, res) => {
   try {
-    const { name, email, password, role, department, college } = req.body;
+    const { name, email, password, role, department, college, phone } =
+      req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !phone) {
       return res.status(400).json({
         message: "All fields are required",
         success: false,
@@ -36,6 +37,7 @@ const registerController = async (req, res) => {
       name,
       email,
       password,
+      phone,
       role,
       department,
       college,
@@ -265,5 +267,5 @@ module.exports = {
   getmeController,
   logoutController,
   uploadProfilePicController,
-  removeProfilePicController
+  removeProfilePicController,
 };

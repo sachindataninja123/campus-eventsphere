@@ -3,12 +3,14 @@ const userRouter = require("./routes/user.routes");
 const cookieparser = require("cookie-parser");
 const eventRouter = require("./routes/event.routes");
 const path = require("path");
+const cors = require("cors");
 
 const app = express();
 
 app.use(express.json());
 app.use(cookieparser());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 
