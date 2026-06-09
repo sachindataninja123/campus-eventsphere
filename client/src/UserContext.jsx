@@ -4,7 +4,7 @@ import axios from "axios";
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const API_URL = "http://localhost:8000/api/user";
+  const API_URL = "http://localhost:8000/api";
 
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token") || "");
@@ -24,7 +24,7 @@ export const AppProvider = ({ children }) => {
     try {
       setLoading(true);
 
-      const { data } = await axios.get(`${API_URL}/auth/me`, authConfig);
+      const { data } = await axios.get(`${API_URL}/user/me`, authConfig);
 
       if (data.success) {
         setUser(data.user);
@@ -42,7 +42,7 @@ export const AppProvider = ({ children }) => {
     try {
       setLoading(true);
 
-      const { data } = await axios.post(`${API_URL}/login`, {
+      const { data } = await axios.post(`${API_URL}/user/login`, {
         email,
         password,
       });
@@ -66,7 +66,7 @@ export const AppProvider = ({ children }) => {
     try {
       setLoading(true);
 
-      const { data } = await axios.post(`${API_URL}/register`, userData);
+      const { data } = await axios.post(`${API_URL}/user/register`, userData);
 
       console.log(data);
 
@@ -89,7 +89,7 @@ export const AppProvider = ({ children }) => {
     try {
       setLoading(true);
 
-      const { data } = await axios.get(`${API_URL}/event/get-events`);
+      const { data } = await axios.get(`${API_URL}/events/get-events`);
 
       if (data.success) {
         setEvents(data.events);
@@ -107,7 +107,7 @@ export const AppProvider = ({ children }) => {
       setLoading(true);
 
       const { data } = await axios.post(
-        `${API_URL}/event/create-event`,
+        `${API_URL}/events/create-event`,
         formData,
         {
           headers: {
@@ -135,7 +135,7 @@ export const AppProvider = ({ children }) => {
       setLoading(true);
 
       const { data } = await axios.delete(
-        `${API_URL}/event/delete-event/${id}`,
+        `${API_URL}/events/delete-event/${id}`,
         authConfig,
       );
 
@@ -157,7 +157,7 @@ export const AppProvider = ({ children }) => {
       setLoading(true);
 
       const { data } = await axios.put(
-        `${API_URL}/event/update-event/${id}`,
+        `${API_URL}/events/update-event/${id}`,
         formData,
         {
           headers: {
