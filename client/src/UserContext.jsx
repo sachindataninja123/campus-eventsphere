@@ -6,26 +6,20 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const API_URL = "http://localhost:8000/api/user";
 
-  // ======================
-  // STATES
-  // ======================
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // ======================
-  // AXIOS CONFIG
-  // ======================
+
   const authConfig = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  // ======================
-  // LOAD USER
-  // ======================
+
+ 
   const getCurrentUser = async () => {
     try {
       setLoading(true);
@@ -43,9 +37,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // ======================
-  // LOGIN
-  // ======================
+
   const login = async (email, password) => {
     try {
       setLoading(true);
@@ -69,9 +61,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // ======================
-  // REGISTER
-  // ======================
+
   const register = async (userData) => {
     try {
       setLoading(true);
@@ -88,18 +78,13 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // ======================
-  // LOGOUT
-  // ======================
   const logout = () => {
     localStorage.removeItem("token");
     setToken("");
     setUser(null);
   };
 
-  // ======================
-  // GET ALL EVENTS
-  // ======================
+ 
   const getEvents = async () => {
     try {
       setLoading(true);
@@ -116,9 +101,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // ======================
-  // CREATE EVENT
-  // ======================
+  
   const createEvent = async (formData) => {
     try {
       setLoading(true);
@@ -146,9 +129,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // ======================
-  // DELETE EVENT
-  // ======================
+  
   const deleteEvent = async (id) => {
     try {
       setLoading(true);
@@ -170,9 +151,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // ======================
-  // UPDATE EVENT
-  // ======================
+  
   const updateEvent = async (id, formData) => {
     try {
       setLoading(true);
@@ -200,9 +179,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // ======================
-  // INITIAL LOAD
-  // ======================
+
   useEffect(() => {
     getEvents();
 

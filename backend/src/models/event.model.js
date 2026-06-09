@@ -44,7 +44,6 @@ const eventSchema = new mongoose.Schema(
       enum: ["pending", "approved", "rejected"],
       default: "approved",
     },
-
     poster: {
       type: String,
       required: true,
