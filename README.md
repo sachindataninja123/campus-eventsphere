@@ -103,13 +103,13 @@ Campus-Event-Hub/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/campus-event-hub.git
+git clone https://github.com/your-username/campus-eventsphere.git
 ```
 
 ### 2. Navigate to Project Directory
 
 ```bash
-cd campus-event-hub
+cd campus-eventsphere
 ```
 
 ### 3. Install Dependencies
@@ -124,7 +124,7 @@ npm install
 #### Backend
 
 ```bash
-cd server
+cd backend
 npm install
 ```
 
@@ -153,7 +153,7 @@ CLOUDINARY_API_SECRET=your_api_secret
 ### Start Backend Server
 
 ```bash
-cd server
+cd backend
 npm run dev
 ```
 
@@ -163,23 +163,6 @@ npm run dev
 cd client
 npm run dev
 ```
-
----
-
-## 📸 Screenshots
-
-### Home Page
-![Home Page](screenshots/home.png)
-
-### Event Details Page
-![Event Details](screenshots/event-details.png)
-
-### Admin Dashboard
-![Admin Dashboard](screenshots/admin-dashboard.png)
-
-> Add your screenshots inside a `screenshots` folder.
-
----
 
 ## 🔮 Future Enhancements
 
