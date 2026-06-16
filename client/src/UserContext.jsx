@@ -24,7 +24,7 @@ export const AppProvider = ({ children }) => {
     try {
       setLoading(true);
 
-      const { data } = await axios.get(`${API_URL}/user/me`, authConfig);
+      const { data } = await axios.get(`${API_URL}/user/profile`, authConfig);
 
       if (data.success) {
         setUser(data.user);

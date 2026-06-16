@@ -12,12 +12,16 @@ const Login = () => {
 
   const { login } = useAppContext();
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
 
-    login(email, password);
+    const user = await login(email, password);
 
-    navigate("/dashboard");
+    if (user.safeUser.role === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/");
+    }
 
     setEmail("");
     setPassword("");

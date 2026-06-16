@@ -106,6 +106,7 @@ const loginController = async (req, res) => {
       message: "User login successfully",
       success: true,
       safeUser,
+      token : token
     });
   } catch (error) {
     console.error("Error:", error.message);
